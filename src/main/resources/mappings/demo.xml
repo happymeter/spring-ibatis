@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC
+        "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="fu.meter.app.test.Demo">
+    <select id="selectDemo" parameterClass="fu.meter.app.test.Demo" resultClass="fu.meter.app.test.Demo">
+        select * from t_demo t
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="name">
+                t.name like '$name$%'
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="age">
+                t.age=#age#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="id">
+                t.id=#id#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="flag">
+                t.flag=#flag#
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    <insert id="insertDemo" parameterClass="fu.meter.app.test.Demo">
+        insert into t_demo (name,age)
+        values(#name#,#age#)
+    </insert>
+    <update id="updateDemo" parameterClass="fu.meter.app.test.Demo" >
+        update t_demo set name=#name#,age=#age#,flag=#flag#
+        where id=#id#
+    </update>
+    <update id="deleteDemo" parameterClass="fu.meter.app.test.Demo" >
+        delete from  t_demo
+        where id=#id#
+    </update>
+</sqlMap>
